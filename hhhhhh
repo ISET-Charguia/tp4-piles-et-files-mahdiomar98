@@ -1,0 +1,140 @@
+#include <stdio.h>
+#include <stdlib.h>
+//Type Pile
+typedef struct cellule
+{
+    int valeur;
+    struct cellule *suivant;
+} Cellule;
+
+typedef Cellule * Pile;
+
+Pile creerPile();
+
+int estVide(Pile p);
+
+void empiler(Pile *p, int x);
+
+void depiler(Pile *p);
+
+int sommet(Pile p);
+
+void afficher(Pile p);
+
+int par(char expre[]);
+
+
+
+int main()
+{
+	Pile maPile1,maPile2;
+    maPile1=creerPile();
+    maPile2=creerPile();
+    int i;+
+    empiler(&maPile2,5);
+    for(i=0; i<50; i+=3)
+    {
+        empiler(&maPile1,i);
+        empiler(&maPile2,i);
+	}
+	
+	printf("la pile 1 \n");
+	afficher(maPile1);
+	
+	printf("la pile 2 \n");
+	afficher(maPile2);
+	
+	
+	
+    return 0;
+}
+
+void afficher(Pile p) {
+    Pile tmp;
+    tmp = creerPile();
+    if(estVide(p)){
+        printf("La pile est vide!\n");
+    }
+    else{
+        while(!estVide(p)){
+            printf("%d\n",sommet(p));
+            empiler(&tmp,sommet(p));
+            depiler(&p);
+        }
+        while(!estVide(tmp)){
+            empiler(&p,sommet(tmp));
+            depiler(&tmp);
+        }
+    }
+}
+
+
+Pile creerPile()
+{
+    return NULL;
+}
+
+int estVide(Pile p) {
+    return p==NULL;
+}
+
+void empiler(Pile *p, int x) {
+    Cellule *nouv;
+    nouv = (Cellule *)malloc(sizeof(*nouv));
+    nouv->valeur=x;
+    nouv->suivant=*p;
+    *p=nouv;
+}
+
+void depiler(Pile *p) {
+    if(!estVide(*p)){
+    Pile ancien;
+    ancien = *p;
+    *p = (*p)->suivant;
+    free(ancien);
+    }
+    else
+        printf("La pile est dÃ©jÃ  vide!\n");
+}
+
+int sommet(Pile p) {
+    return p->valeur;
+}
+
+int par(char expre[] )
+{
+    Pile p;
+    int SOM,i; 
+    p=creerPile();
+ 
+    for(i=0;i<length(expre);i++)
+	
+        if(expre[i] == '(')
+			empiler(P, SOM);
+        else
+        if(expre[i] == ')')
+            if(estVide(P) == Faux)
+                depiler(P, SOM);
+            else
+                return  0;
+ 
+    if(estVide(P)== 0)
+        return 0 ;
+    else
+        return 1;
+
+ 
+}
+
+
+
+
+
+	
+	
+		
+    
+    
+
+	
+
